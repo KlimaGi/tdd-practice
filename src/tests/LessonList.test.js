@@ -10,7 +10,7 @@ describe("LessonList", () => {
     expect(lessonListUls).toHaveLength(1);
   });
 
-  it("renders no li elements when no people exist", () => {
+  it("renders no li elements when no lesson exist", () => {
     const lesson = [];
     const lessonListWrapper = shallow(<LessonList lesson={lesson} />);
     const lessonListItems = lessonListWrapper.find("li");
@@ -24,5 +24,25 @@ describe("LessonList", () => {
     const lessonListItems = lessonListWrapper.find("li");
 
     expect(lessonListItems).toHaveLength(1);
+  });
+
+  it("renders one li element for each person that exists", () => {
+    const lesson = [
+      { title: "topic name", note: "important notes", url: "" },
+      { title: "topic other name", note: "just notes", url: "" },
+    ];
+    const lessonListWrapper = shallow(<LessonList lesson={lesson} />);
+    const lessonListItems = lessonListWrapper.find("li");
+
+    expect(lessonListItems).toHaveLength(2);
+  });
+
+  it("renders the title and note of a lesson", () => {
+    const lesson = [{ title: "topic name", note: "important notes", url: "" }];
+    const lessonListWrapper = shallow(<LessonList lesson={lesson} />);
+    const lessonListItems = lessonListWrapper.find("li");
+
+    expect(lessonListWrapper.find("li").text()).toContain(lesson[0].title);
+    expect(lessonListWrapper.find("li").text()).toContain(lesson[0].note);
   });
 });

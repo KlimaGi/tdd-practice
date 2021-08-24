@@ -1,5 +1,11 @@
 import React from "react";
 
-export default (props) => (
-  <ul>{props.lesson && props.lesson.length == 1 ? <li></li> : undefined}</ul>
+export default ({ lesson = [] }) => (
+  <ul>
+    {lesson.map((lesson, i) => (
+      <li key={i}>
+        {lesson.title} | {lesson.note}
+      </li>
+    ))}
+  </ul>
 );
